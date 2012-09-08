@@ -14,17 +14,18 @@ $(function(){
 
 var API_URL = "https://api.github.com";
 function getListUrl(user){
-  return API_URL + "/users/" + user + "/gists";
+  return API_URL + "/users/" + user + "/gists?callback=?";
 }
 function getGistUrl(id){
-  return API_URL + "/gists/" + id;
+  return API_URL + "/gists/" + id + "?callback=?";
 }
 function getUserUrl(user){
-  return API_URL + "/users/" + user;
+  return API_URL + "/users/" + user + "?callback=?";
 }
 
 function loadList(_t, user, callback){
-  $.getJSON(getListUrl(user), function(data){
+  $.getJSON(getListUrl(user), function(obj){
+    var data = obj.data;
     if (callback){
       callback(data);
       return;
@@ -49,7 +50,8 @@ function loadList(_t, user, callback){
 }
 
 function loadGist(_t, id, callback){
-  $.getJSON(getGistUrl(id), function(data){
+  $.getJSON(getGistUrl(id), function(obj){
+    var data = obj.data;
     if (callback){
       callback(data);
       return ;
@@ -69,7 +71,8 @@ function loadGist(_t, id, callback){
 }
 
 function loadUser(_t, user, callback){
-  $.getJSON(getUserUrl(user), function(data){
+  $.getJSON(getUserUrl(user), function(obj){
+    var data = obj.data;
     var html = Handlebars.templates.gist_user_profile(data);
     _t.append(html);
   });
