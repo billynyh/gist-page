@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gist</title>
+    <!-- Bootstrap -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/google-code-prettify/prettify.js"></script>
+    <script src="lib/handlebars-1.0.0.beta.6.js"></script>
+
+    <script src="js/tmpl.js"></script>
+    <script src="js/gist.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-container">
+      </div>
+
+      <div class="code-container">
+      </div>
+    </div>
+
+    <div class="footer">
+      by <a href="http://twitter.com/billynyh">@billynyh</a>
+    </div>
+
+<script>
+$(function(){
+  var qs = get_qs();
+  var user = qs.user;
+  if (!user){
+    user = "billynyh";
+  }
+  $(".profile-container").gistLoadUserProfile(user);
+  $(".code-container").gistLoadList(user);
+});
+</script>
+    
+  </body>
+</html>
