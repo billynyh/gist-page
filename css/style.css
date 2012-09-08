@@ -34,6 +34,9 @@ pre:hover.with-label:after {
   float:left;
   width:600px;
 }
+.profile-pic img {
+  width:90px;
+}
 
 .info-row {
   padding:3px 0;
