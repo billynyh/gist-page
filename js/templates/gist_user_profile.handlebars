@@ -1,19 +1,19 @@
-<div class="row"><div class="span12">
-  <div class="gist-profile well clearfix">
+  <div class="gist-profile well" >
     <div class="profile-pic">
       <img src="{{avatar_url}}" class="img-polaroid" />
     </div>
-    <div class="span6">
-      <div class="info-row clearfix">
+    <div class="info-row">
+      <div class="username">
         <span class="username">{{login}}</span>
       </div>
-      <div class="info-row clearfix">
-        <span class="info-label"><i class="icon-user"></i> GitHub : </span>
-        <span class="info-content"><a href="{{html_url}}">{{html_url}}</a></span>
+      <div class="info-row">
+        <span class="">
+        <a href="{{html_url}}">{{html_url}}</a>
+        </span>
       </div>
-      <div class="info-row clearfix">
-        <span class="info-label"><i class="icon-thumbs-up"></i> Public Repos : </span>
-        <span class="info-content"><span class="badge badge-success">{{public_repos}}</span></span>
+      <div class="row-fluid">
+        <span class="span8 info-label"><i class="icon-thumbs-up"></i> Public Repos : </span>
+        <span class="span4 info-content"><span class="badge badge-success">{{public_repos}}</span></span>
       </div>
       <div class="info-row clearfix">
         <span class="info-label"><i class="icon-thumbs-up"></i> Public gist : </span>
@@ -22,5 +22,3 @@
       <p>{{bio}}</p>
     </div>
   </div>
-  <hr/>
-</div></div>
