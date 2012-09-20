@@ -49,7 +49,7 @@ templates['gist_user_profile'] = template(function (Handlebars,depth0,helpers,pa
   stack1 = foundHelper || depth0.avatar_url;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "avatar_url", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\" class=\"img-polaroid\" />\n    </div>\n    <div class=\"info-row\">\n      <div class=\"username\">\n        <span class=\"username\">";
+  buffer += escapeExpression(stack1) + "\" class=\"img-polaroid\" />\n    </div>\n    <div class=\"info-row\">\n      <div class=\"\">\n        <span class=\"username\">";
   foundHelper = helpers.login;
   stack1 = foundHelper || depth0.login;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }

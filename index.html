@@ -16,18 +16,16 @@
     <script src="js/gist.js"></script>
   </head>
   <body data-spy="scroll" data-control=".navbar">
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-        </div>
-        <div id="nav-container" class="span3">
+    <div id="layout-container">
+        <div id="nav-container" class="">
           <div class="profile-container"></div>
           <ul class="nav nav-list">
             <li><a href="#gist">Gist</a></li>
             <li><a href="#starred">Starred</a></li>
           </ul>
         </div>
-        <div class="span9">
+        <div id="content-container">
+          <div class="container-fluid">
 
           <div class="code-container" id="gist">
             <h2>Gist</h2>
@@ -35,6 +33,8 @@
 
           <div class="starred-container" id="starred">
             <h2 class="starred-title">Starred Projects</h2>
+          </div>
+
           </div>
 
         </div>

@@ -1,10 +1,13 @@
-.container-fluid {
-  padding-left:20px;
-}
 
 #nav-container {
   position:fixed;
-  margin-left:0;
+  margin-left:5px;
+  width:240px;
+}
+
+#content-container {
+  margin-left:250px;
+
 }
 
 .nav-list li a {
