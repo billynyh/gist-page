@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>admin design</title>
+    <!-- Bootstrap -->
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="https://rawgithub.com/timrwood/moment/2.1.0/min/moment.min.js"></script>
+    <link href="http://harvesthq.github.io/chosen/chosen.css" rel="stylesheet"></link>
+    <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet"></link>
+    <style type="text/css">
+        #data tr.ui-selecting { background: #FECA40; }
+        #data tr.ui-selected { background: #FEC630; }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span4"><h1>RLog</h1></div>
+        <div class="span8">
+            <p class="text-right" style="padding-top:10px">
+                <a href="#" class="btn btn-large" id="exportBtn">Export</a>
+            </p>
+        </div>
+      </div>
+      <div class="row-fluid">
+<table id="data" class="table table-striped-">
+    <tr>
+        <th>Time</th>
+        <th>App ID</th>
+        <th>Build</th>
+        <th>Category</th>
+        <th>Iden</th>
+        <th>User</th>
+        <th>Key</th>
+        <th>Platform</th>
+        <th>Message</th>
+    </tr>
+    <tr>
+        <td style="width:230px">
+<select id="time1" style="width:80px">
+    <option value="now">now</option>
+    <option value="">-1 hour</option>
+    <option value="">-5 hour</option>
+    <option value="">-24 hour</option>
+</select> -
+<select id="time2" style="width:80px">
+    <option value="-30 min">-30min</option>
+    <option value="">-3 min</option>
+    <option value="">-1 hour</option>
+    <option value="">-5 hour</option>
+</select> 
+        </td>
+        <td style="width:230px">
+<select id="appid" name="appid" style="width:200px">
+    <option value="">- show all -</option>
+    <option value="com.xxx.yyy" >xxx.yyy</option>
+    <option value="com.aaa.bbb" >aaa.bbb</option>
+</select>        
+        </td>
+        <td><input type="text" style="width:40px"/></td>
+        <td>
+<select id="cat" name="category">
+    <option value="">- show all -</option>
+    <option value="DEBUG" >DEBUG</option>
+    <option value="INFO" >INFO</option>
+    <option value="NOTICE" >NOTICE</option>
+    <option value="WARN" >WARN</option>
+    <option value="ERR" >ERR</option>
+    <option value="CRIT" >CRIT</option>
+    <option value="EMERG" >EMERG</option>
+</select>
+</td>
+        <td><input type="text" style="width:100px"/></td>
+        <td><input type="text" style="width:100px"/></td>
+        <td><input type="text" style=""/></td>
+        <td>-</td>
+        <td><input type="text" style=""/></td>
+    </tr>
+</table>
+
+
+      </div>
+    </div>
+
+<!-- Modal -->
+<div id="exportModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="myModalLabel">Export data</h3>
+  </div>
+  <div class="modal-body">
+    <textarea id="exportTextarea" style="width:90%; height:400px"  wrap="off"></textarea>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+    APPS = ["com.xxx.yyy", "com.aaa.bbb"];
+    IDEN = [
+        "00b5bc93-247b-4a5f-b7a7-0ed1d459aa83",
+        "1801b948-e805-4c90-a9e2-43c17d49765a",
+        "b766ca53-2b9c-4d6a-8b1a-90372d32d1c7",
+        "1348254d-5f2c-4fbe-9cf7-6cb006ecc502",
+        "3e990d94-e134-4fb9-8c01-f7d1c85dbf49"
+    ];
+    USER = ["billy", "eddy", "tim", "kit", "lung"];
+    KEY = ["APP_LAUNCH", "LOAD_LIST", "LIKE", "SHARE", "COMMENT"];
+    MSG = "aLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque non tortor sit amet fermentum. Aenean dignissim sodales dui, ac dignissim nibh sagittis nec. Aliquam scelerisque laoreet odio et ultricies. Praesent suscipit viverra accumsan. Fusce sodales, odio et adipiscing euismod, nisl leo luctus lectus, vitae vehicula nisl mauris vel tellus. Mauris vestibulum risus at erat rutrum accumsan. Nam dapibus scelerisque massa, vel bibendum felis ullamcorper sed. Morbi molestie mattis risus. Proin vitae augue laoreet, mattis nisi at, tristique quam. Nunc tempor et massa in auctor. Curabitur suscipit eu libero sit amet facilisis. Vestibulum ultricies sapien massa, ac rhoncus mauris adipiscing non. Pellentesque ornare ante non lobortis dictum. Donec elementum aliquet nunc non vulputate. Etiam eu mi sollicitudin, pellentesque eros non, interdum arcu. Phasellus a lorem quam";
+
+    function _r(x) {
+        return Math.floor(Math.random() * x);
+    }
+
+    function format_date(d) {
+        //var y = d.getFullYear(), m = d.getMonth(), day = d.getDay();
+        //var th = d.getHours(), tm = d.getMinutes(), ts = d.getSeconds();
+        //return y+"-"+m+"-"+day+" "+th+":"+tm+":"+ts;
+        return moment(d).format("YYYY-MM-DD HH-mm-ss");
+    }
+    function dummy_date(x) {
+        var d = new Date();
+        return format_date(new Date(d.getTime() + x * 10000 + _r(100000)));
+    }
+    function dummy_app_id(x) {
+        return APPS[ _r(APPS.length) ];
+    }
+    function dummy_iden(x) {
+        return "<input value=\"" + IDEN[ _r(IDEN.length) ] + "\" />";
+    }
+    function dummy_user(x) {
+        return USER[ _r(USER.length) ];
+    }
+    function dummy_key(x) {
+        return KEY[ _r(KEY.length) ];
+    }
+    function dummy_platform(x) {
+        return "-";
+    }
+    function dummy_message(x) {
+        var y = _r(100);
+        return MSG.substring(y, y+ 30);
+    }
+
+    function dummy_data(i, j) {
+        if (i == 0) return dummy_date(j);
+        if (i == 1) return dummy_app_id(j);
+        if (i == 2) return 10;
+        if (i == 3) return "DEBUG";
+        if (i == 4) return dummy_iden(j);
+        if (i == 5) return dummy_user(j);
+        if (i == 6) return dummy_key(j);
+        if (i == 7) return dummy_platform(j);
+        if (i == 8) return dummy_message(j);
+    }
+    function extract_cell(cell, i) {
+        var _c = $(cell);
+        if (i == 4) return _c.find("input").val();
+        return _c.text();
+    }
+    function extract_row(row) {
+        var a = [];
+        var cols = row.find("td");
+        console.log(cols);
+        for (var i=0;i<9;i++) {
+            a.push(extract_cell(cols[i], i));
+        }
+        return a.join(" | ");
+    }
+
+    $("#appid, #cat, #time1, #time2").chosen();
+
+    var t = $(".table");
+    for (var i = 0; i<30;i++) {
+        var row = $("<tr class=\"data-row\"></tr>");
+        for (var j =0 ;j<9;j++) row.append("<td>" + dummy_data(j, i) + "</td>");
+        t.append(row);
+    }
+    $(".table").selectable({
+        filter: "tr.data-row",
+        autoRefresh:false
+    });
+
+    $("#exportBtn").click(function(){
+        // prepare data
+        var a = [];
+        $("tr.ui-selected").each(function(){
+            a.push(extract_row($(this)));
+        });
+        var data = a.join("\n");
+        // set to textarea
+        $("#exportTextarea").html(data);
+        // show modal
+        $("#exportModal").modal();
+    });
+});
+</script>
+
+  </body>
+</html>
